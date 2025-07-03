@@ -14,7 +14,6 @@
     height: 100vh;
     margin: 0;
     overflow: hidden;
-    cursor: pointer;
   }
 
   @keyframes gradient {
@@ -58,7 +57,7 @@
     background-size: contain;
     background-repeat: no-repeat;
     transform: translate(-50%, -50%);
-    animation: crack 0.1s forwards;
+    animation: crack 0.5s forwards;
     z-index: 10;
   }
 
@@ -89,18 +88,18 @@
   </div>
 
 <script>
-  document.body.addEventListener('click', function(e) {
+  window.onload = function() {
     const bulletHole = document.createElement('div');
     bulletHole.classList.add('bullet-hole');
-    bulletHole.style.left = e.clientX + 'px';
-    bulletHole.style.top = e.clientY + 'px';
+    bulletHole.style.left = '50%';
+    bulletHole.style.top = '50%';
     document.body.appendChild(bulletHole);
 
     setTimeout(() => {
         const introText = document.getElementById('intro-text');
         introText.classList.remove('hidden');
     }, 500);
-  });
+  };
 </script>
 </body>
 </html>
