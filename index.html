@@ -76,9 +76,37 @@
         to { opacity: 1; }
     }
 
+  #black-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    z-index: 9999; /* Ensure it's on top */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50%; /* Adjust size of crack image */
+  }
+
+  .shatter-effect {
+    animation: shatter-fade-out 2s forwards;
+    background-image: url('https://cdn.pixabay.com/photo/2013/07/12/17/47/bullet-hole-152491_960_720.png'); /* Reusing bullet hole as a crack */
+  }
+
+  @keyframes shatter-fade-out {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+    100% { opacity: 0; visibility: hidden; }
+  }
+
 </style>
 </head>
 <body>
+  <div id="black-overlay"></div>
   <div id="overlay" class="hidden"></div>
   <div class="container">
     <div id="intro-text" class="hidden intro">
@@ -89,16 +117,27 @@
 
 <script>
   window.onload = function() {
-    const bulletHole = document.createElement('div');
-    bulletHole.classList.add('bullet-hole');
-    bulletHole.style.left = '50%';
-    bulletHole.style.top = '50%';
-    document.body.appendChild(bulletHole);
+    const blackOverlay = document.getElementById('black-overlay');
+    const introText = document.getElementById('intro-text');
 
+    // Apply shatter effect to black overlay
+    blackOverlay.classList.add('shatter-effect');
+
+    // After shatter effect, reveal content
     setTimeout(() => {
-        const introText = document.getElementById('intro-text');
+      blackOverlay.style.display = 'none'; // Hide the overlay completely
+
+      // Now, trigger the original bullet hole and intro text
+      const bulletHole = document.createElement('div');
+      bulletHole.classList.add('bullet-hole');
+      bulletHole.style.left = '50%';
+      bulletHole.style.top = '50%';
+      document.body.appendChild(bulletHole);
+
+      setTimeout(() => {
         introText.classList.remove('hidden');
-    }, 500);
+      }, 500); // Delay for intro text after bullet hole
+    }, 2000); // Duration of shatter-fade-out animation
   };
 </script>
 </body>
