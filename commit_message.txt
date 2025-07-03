@@ -1,1 +1,1 @@
-Update index.html with Korean greeting and background color
+Make the page more dynamic and add a name
